@@ -1,0 +1,21 @@
+services:
+  websocket-api:
+    build:
+      context: ./websocket1
+      dockerfile: Dockerfile
+    image: websocket-api:latest
+    user: "root"
+    deploy:
+      replicas: 3
+    ports:
+      - "3000-3002:3000"
+    environment:
+      - FILE_SERVER_PATH=/app/storage
+    volumes:
+      - ./storage:/app/storage
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
